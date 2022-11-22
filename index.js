@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path=require("path")
+const session = require('express-session');
 
 require("dotenv").config();
 
@@ -17,6 +18,14 @@ const app = express();
 //Parse Body Content Coming From Every Requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+app.use(session({
+  secret: 'my_secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 // Import routes
 const AuthRouter = require("./routes/authRoute");
