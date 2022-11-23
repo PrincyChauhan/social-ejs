@@ -18,9 +18,9 @@ const uploadPostImage = upload.single("image");
 const postPage = async (req, res, next) => {
   try {
     if (req.session.login) {
-      res.redirect("/users/home");
-    } else {
       res.render("post");
+    } else {
+      res.render("login");
     }
   } catch (error) {
     console.log(error);
@@ -30,9 +30,9 @@ const postPage = async (req, res, next) => {
 };
 
 const createPost = async (req, res) => {
+  console.log(req.body);
   const post = await Post.create(req.body);
-  console.log(req)
-  res.render("home");
+  res.redirect("/users/home");
 };
 
 module.exports = {
