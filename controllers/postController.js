@@ -17,8 +17,8 @@ const uploadPostImage = upload.single("image");
 
 
 const createPost = async (req, res) => {
+  if (req.file) req.body.image = req.file.filename;
   await Post.create(req.body);
-  console.log(req.body)
   res.redirect("/view/home");
 };
 
