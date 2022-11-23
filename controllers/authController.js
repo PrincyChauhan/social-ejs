@@ -45,6 +45,7 @@ const protect = catchAsync(async (req, res, next) => {
 
 const userSignup = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
+  console.log(newUser)
   res.render("login");
 });
 
@@ -74,14 +75,13 @@ const userLogout = catchAsync(async (req, res) => {
 
 const registerPage = async (req, res, next) => {
   try {
-    console.log("------------")
     if (req.session.login) {
       res.redirect("/users/home");
     } else {
       res.render("register");
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     errorMsg = { error: "Something went wrong" };
     res.status(500).json(errorMsg);
   }
