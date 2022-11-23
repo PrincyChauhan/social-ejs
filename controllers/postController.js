@@ -15,28 +15,15 @@ var upload = multer({ storage: multerStorage });
 
 const uploadPostImage = upload.single("image");
 
-const postPage = async (req, res, next) => {
-  try {
-    if (req.session.login) {
-      res.render("post");
-    } else {
-      res.render("login");
-    }
-  } catch (error) {
-    console.log(error);
-    errorMsg = { error: "Something went wrong" };
-    res.status(500).json(errorMsg);
-  }
-};
 
 const createPost = async (req, res) => {
-  console.log(req.body);
-  const post = await Post.create(req.body);
-  res.redirect("/users/home");
+  await Post.create(req.body);
+  res.redirect("/view/home");
 };
+
+
 
 module.exports = {
   createPost,
   uploadPostImage,
-  postPage,
 };

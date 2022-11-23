@@ -4,8 +4,7 @@ const postController = require("../controllers/postController");
 const postvalidation = require("../validation/postValidation");
 const postRouter = express.Router();
 
-postRouter.route("/addPost").post(postController.createPost);
+postRouter.route("/").post(postController.createPost);
 
-postRouter.route("/page/post").get(postController.postPage);
 
 module.exports = postRouter;

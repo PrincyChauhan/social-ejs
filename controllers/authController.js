@@ -46,7 +46,7 @@ const protect = catchAsync(async (req, res, next) => {
 const userSignup = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
   console.log(newUser)
-  res.render("login");
+  res.redirect("/view/login");
 });
 
 const userLogin = catchAsync(async (req, res, next) => {
@@ -62,7 +62,9 @@ const userLogin = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("Incorrect email or password"), 401);
   }
-  res.render("home");
+  req.body.login = "asdasdas";
+  console.log(req.session)
+  res.redirect("/view/home");
 });
 
 const userLogout = catchAsync(async (req, res) => {
@@ -73,52 +75,11 @@ const userLogout = catchAsync(async (req, res) => {
   });
 });
 
-const registerPage = async (req, res, next) => {
-  try {
-    if (req.session.login) {
-      res.redirect("/users/home");
-    } else {
-      res.render("register");
-    }
-  } catch (error) {
-    console.log(error);
-    errorMsg = { error: "Something went wrong" };
-    res.status(500).json(errorMsg);
-  }
-};
 
-const loginPage = async (req, res, next) => {
-  try {
-    if (req.session.login) {
-      res.redirect("/users/home");
-    } else {
-      res.render("login");
-    }
-  } catch (error) {
-    errorMsg = { error: "Something went wrong" };
-    res.status(500).json(errorMsg);
-  }
-};
-
-const homePage = async (req, res, next) => {
-  try {
-    if (req.session.login) {
-      res.redirect("/users/home");
-    } else {
-      res.render("login");
-    }
-  } catch (error) {
-    errorMsg = { error: "Something went wrong" };
-    res.status(500).json(errorMsg);
-  }
-};
 
 module.exports = {
   userSignup,
   userLogin,
   protect,
   userLogout,
-  registerPage,
-  loginPage,
-  homePage,
 };
