@@ -10,6 +10,7 @@ viewRouter.route("/login").get(viewController.loginPage);
 viewRouter.route("/home").get(viewController.homePage);
 viewRouter.route("/view-post/:id").get(viewController.postViewPage);
 viewRouter.route("/logout").get(viewController.logout);
+viewRouter.route("/friend").get(viewController.friendListPage);
 
 
 module.exports = viewRouter;

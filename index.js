@@ -36,12 +36,14 @@ const AuthRouter = require("./routes/authRoute");
 const PostRouter = require("./routes/postRoute");
 const viewRouter = require("./routes/viewRoute");
 const commentRouter = require("./routes/commentRoute");
+const RequestRouter = require("./routes/requestRoute");
 
 // Routes for app
 app.use("/users", AuthRouter);
 app.use("/posts", PostRouter);
 app.use("/view", viewRouter);
 app.use("/comment", commentRouter);
+app.use("/request", RequestRouter);
 
 
 // app.all("*", (req, res, next) => {

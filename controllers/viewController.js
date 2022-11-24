@@ -1,5 +1,7 @@
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
+const User = require("../models/userModel");
+const Friend = require("../models/requestModel");
 
 const loginPage = async (req, res, next) => {
   try {
@@ -18,7 +20,6 @@ const homePage = async (req, res, next) => {
   try {
     if (req.cookies.id) {
       const posts = await Post.find();
-      console.log(posts);
       res.render("home", {
         posts: posts,
       });
@@ -30,6 +31,7 @@ const homePage = async (req, res, next) => {
     res.status(500).json(errorMsg);
   }
 };
+
 const registerPage = async (req, res, next) => {
   try {
     if (req.cookies.id) {
@@ -79,6 +81,22 @@ const postViewPage = async (req, res, next) => {
   }
 };
 
+const friendListPage = async (req, res, next) => {
+  try {
+    if (req.cookies.id) {
+      const friends = await User.find();
+      // res.render("friend", {
+      //   friends: friends,
+      // });
+    } else {
+      res.redirect("/view/login");
+    }
+  } catch (error) {
+    errorMsg = { error: "Something went wrong" };
+    res.status(500).json(errorMsg);
+  }
+};
+
 const logout = async (req, res) => {
   res.clearCookie("id");
   res.redirect("/view/login");
@@ -91,4 +109,5 @@ module.exports = {
   homePage,
   postPage,
   postViewPage,
+  friendListPage,
 };

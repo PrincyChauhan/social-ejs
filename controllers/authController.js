@@ -49,6 +49,7 @@ const userSignup = catchAsync(async (req, res) => {
 });
 
 const userLogin = catchAsync(async (req, res, next) => {
+  console.log("--------------------------------------")
   const { email, password } = req.body;
 
   // 1) Check if email and password are exist
