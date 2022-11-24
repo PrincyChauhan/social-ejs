@@ -1,4 +1,5 @@
 const Post = require("../models/postModel");
+const Comment = require("../models/commentModel");
 
 const loginPage = async (req, res, next) => {
   try {
@@ -57,9 +58,31 @@ const postPage = async (req, res, next) => {
   }
 };
 
+const postViewPage = async (req, res, next) => {
+  try {
+    //   if (req.session.login) {
+    const post = await Post.findById(req.params.id);
+    const comments = await Comment.find({
+      post:post._id
+    });
+    res.render("postView", {
+      comments: comments,
+      post: post,
+    });
+    //   } else {
+    // res.render("/view/login");
+    //   }
+  } catch (error) {
+    console.log(error);
+    errorMsg = { error: "Something went wrong" };
+    res.status(500).json(errorMsg);
+  }
+};
+
 module.exports = {
   registerPage,
   loginPage,
   homePage,
   postPage,
+  postViewPage,
 };

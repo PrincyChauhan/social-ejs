@@ -32,11 +32,13 @@ app.use(
 const AuthRouter = require("./routes/authRoute");
 const PostRouter = require("./routes/postRoute");
 const viewRouter = require("./routes/viewRoute");
+const commentRouter = require("./routes/commentRoute");
 
 // Routes for app
 app.use("/users", AuthRouter);
 app.use("/posts", PostRouter);
 app.use("/view", viewRouter);
+app.use("/comment", commentRouter);
 
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));

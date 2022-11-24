@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="card mb-3 p-5">
+    <div class="card" style="width:400px">
+      <img class="card-img-top" src="/uploads/<%= post.image%>" alt="Card image cap"/>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%=post.title%>
+      </h5>
+      <p class="card-text">
+        <%= post.description%>
+      </p>
+      <h6 class="card-title">Comments</h6>
+      <% comments.forEach(function(comment){ %>
+        <p class="card-text">
+          <%= comment.title%>
+        </p>
+        <% }) %>
+          <form action="/comment/<%=post._id%>" method="post">
+            <div class="form-group">
+              <label for="comment">Comment</label>
+              <textarea class="form-control" id="comment" name="title" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+  </div>
+</body>
+
+</html>
