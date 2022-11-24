@@ -38,14 +38,13 @@ const protect = catchAsync(async (req, res, next) => {
 
   // GRANT ACCESS TO PROTECTED ROUTES
   req.user = currentUser;
-  req.session.login = true;
 
   next();
 });
 
 const userSignup = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
-  console.log(newUser)
+  console.log(newUser);
   res.redirect("/view/login");
 });
 
@@ -62,8 +61,12 @@ const userLogin = catchAsync(async (req, res, next) => {
   if (!user) {
     return next(new AppError("Incorrect email or password"), 401);
   }
-  req.body.login = "asdasdas";
-  console.log(req.session)
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
+  
+  res.cookie('id', user._id);
   res.redirect("/view/home");
 });
 

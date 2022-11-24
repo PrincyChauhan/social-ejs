@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 
 require("dotenv").config();
 
@@ -18,6 +19,8 @@ const app = express();
 //Parse Body Content Coming From Every Requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+
 
 app.use(
   session({
@@ -40,14 +43,15 @@ app.use("/posts", PostRouter);
 app.use("/view", viewRouter);
 app.use("/comment", commentRouter);
 
+
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 // });
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static('uploads')); 
-app.use('/uploads', express.static('uploads'));
+app.use(express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 
-app.listen(3000, () => {
+app.listen(3000, (req, res) => {
   console.log("Port is listing on 3000");
 });

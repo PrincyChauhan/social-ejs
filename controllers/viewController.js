@@ -3,7 +3,7 @@ const Comment = require("../models/commentModel");
 
 const loginPage = async (req, res, next) => {
   try {
-    if (req.session.login) {
+    if (req.cookies.id) {
       res.redirect("/view/home");
     } else {
       res.render("login");
@@ -16,15 +16,16 @@ const loginPage = async (req, res, next) => {
 
 const homePage = async (req, res, next) => {
   try {
-    // if (req.session.login) {
-    const posts = await Post.find();
-    console.log(posts);
-    res.render("home", {
-      posts: posts,
-    });
-    // } else {
-    //   res.redirect("/view/login");
-    // }
+    
+    if (req.cookies.id) {
+      const posts = await Post.find();
+      console.log(posts);
+      res.render("home", {
+        posts: posts,
+      });
+    } else {
+      res.redirect("/view/login");
+    }
   } catch (error) {
     errorMsg = { error: "Something went wrong" };
     res.status(500).json(errorMsg);
@@ -32,11 +33,11 @@ const homePage = async (req, res, next) => {
 };
 const registerPage = async (req, res, next) => {
   try {
-    // if (req.session.login) {
-    //   res.redirect("/view/home");
-    // } else {
-    res.render("register");
-    // }
+    if (req.cookies.id) {
+      res.redirect("/view/home");
+    } else {
+      res.render("register");
+    }
   } catch (error) {
     console.log(error);
     errorMsg = { error: "Something went wrong" };
@@ -46,11 +47,11 @@ const registerPage = async (req, res, next) => {
 
 const postPage = async (req, res, next) => {
   try {
-    //   if (req.session.login) {
-    res.render("post");
-    //   } else {
-    // res.render("/view/login");
-    //   }
+    if (req.cookies.id) {
+      res.render("post");
+    } else {
+      res.render("/view/login");
+    }
   } catch (error) {
     console.log(error);
     errorMsg = { error: "Something went wrong" };
@@ -60,18 +61,18 @@ const postPage = async (req, res, next) => {
 
 const postViewPage = async (req, res, next) => {
   try {
-    //   if (req.session.login) {
-    const post = await Post.findById(req.params.id);
-    const comments = await Comment.find({
-      post:post._id
-    });
-    res.render("postView", {
-      comments: comments,
-      post: post,
-    });
-    //   } else {
-    // res.render("/view/login");
-    //   }
+    if (req.cookies.id) {
+      const post = await Post.findById(req.params.id);
+      const comments = await Comment.find({
+        post: post._id,
+      });
+      res.render("postView", {
+        comments: comments,
+        post: post,
+      });
+    } else {
+      res.render("/view/login");
+    }
   } catch (error) {
     console.log(error);
     errorMsg = { error: "Something went wrong" };
