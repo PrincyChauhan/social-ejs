@@ -78,6 +78,7 @@ const userLogout = catchAsync(async (req, res) => {
   });
 });
 
+
 module.exports = {
   userSignup,
   userLogin,

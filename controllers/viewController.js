@@ -16,7 +16,6 @@ const loginPage = async (req, res, next) => {
 
 const homePage = async (req, res, next) => {
   try {
-    
     if (req.cookies.id) {
       const posts = await Post.find();
       console.log(posts);
@@ -80,9 +79,15 @@ const postViewPage = async (req, res, next) => {
   }
 };
 
+const logout = async (req, res) => {
+  res.clearCookie("id");
+  res.redirect("/view/login");
+};
+
 module.exports = {
   registerPage,
   loginPage,
+  logout,
   homePage,
   postPage,
   postViewPage,
