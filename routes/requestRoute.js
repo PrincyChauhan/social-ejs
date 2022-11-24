@@ -3,10 +3,11 @@ const requestController = require("../controllers/requestController");
 const requestRouter = express.Router();
 
 requestRouter.route("/:reciverId").post(requestController.addRequest);
+requestRouter.route("/status/:id").post(requestController.updateRequestStatus);
 
 requestRouter
   .route("/:id")
   .delete(requestController.deleteRequest)
-  .patch(requestController.updateRequestStatus);
+
 
 module.exports = requestRouter;

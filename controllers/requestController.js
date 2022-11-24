@@ -7,29 +7,15 @@ const addRequest = async (req, res) => {
     reciver_id: reciver_id,
     sender_id: sender_id,
   });
+  res.redirect("back");
 };
 
 const updateRequestStatus = async (req, res) => {
   try {
-    const request = await Request.findByIdAndUpdate(req.params.id);
-    if (request.status == "pending") {
-      const request = await Request.updateOne(
-        { status: "approved" },
-        {
-          _id: req.params.id,
-        }
-      );
-    } else {
-      const request = await Request.updateOne(
-        { status: "rejected" },
-        {
-          _id: req.params.id,
-        }
-      );
-    }
-    res.status(200).json({
-      status: "success",
+    const request = await Request.findByIdAndUpdate(req.params.id, {
+      status: "approved",
     });
+    res.redirect("back");
   } catch (error) {
     res.status(400).json({
       status: "fail",

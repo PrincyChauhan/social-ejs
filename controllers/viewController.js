@@ -1,7 +1,7 @@
 const Post = require("../models/postModel");
 const Comment = require("../models/commentModel");
 const User = require("../models/userModel");
-const Friend = require("../models/requestModel");
+const FriendRequest = require("../models/requestModel");
 
 const loginPage = async (req, res, next) => {
   try {
@@ -19,7 +19,19 @@ const loginPage = async (req, res, next) => {
 const homePage = async (req, res, next) => {
   try {
     if (req.cookies.id) {
-      const posts = await Post.find();
+      const friends = await FriendRequest.find({
+        sender_id: req.cookies.id,
+        status: "approved",
+      });
+      const data = [];
+      friends.map((friend) => {
+        data.push(friend.reciver_id);
+      });
+
+      console.log(data);
+      const posts = await Post.find({
+        user_id: { $in: ["637fa0786904452bc6f38d98"] },
+      });
       res.render("home", {
         posts: posts,
       });
@@ -37,7 +49,7 @@ const registerPage = async (req, res, next) => {
   //   if (req.cookies.id) {
   //     res.redirect("/view/home");
   //   } else {
-      res.render("register");
+  res.render("register");
   //   }
   // } catch (error) {
   //   console.log(error);
@@ -45,7 +57,6 @@ const registerPage = async (req, res, next) => {
   //   res.status(500).json(errorMsg);
   // }
 };
-
 
 const postPage = async (req, res, next) => {
   try {
@@ -85,8 +96,27 @@ const postViewPage = async (req, res, next) => {
 const friendListPage = async (req, res, next) => {
   try {
     if (req.cookies.id) {
-      const users = await User.find();
+      const users = await User.find({ _id: { $ne: req.cookies.id } });
       res.render("friend", {
+        users: users,
+      });
+    } else {
+      res.redirect("/view/login");
+    }
+  } catch (error) {
+    errorMsg = { error: "Something went wrong" };
+    res.status(500).json(errorMsg);
+  }
+};
+
+const friendRequestList = async (req, res, next) => {
+  try {
+    if (req.cookies.id) {
+      const users = await FriendRequest.find({
+        reciver_id: req.cookies.id,
+        status: "pending",
+      });
+      res.render("requestFriend", {
         users: users,
       });
     } else {
@@ -111,4 +141,5 @@ module.exports = {
   postPage,
   postViewPage,
   friendListPage,
+  friendRequestList,
 };

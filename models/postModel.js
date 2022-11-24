@@ -10,6 +10,9 @@ const postSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  user_id: {
+    type: mongoose.Schema.ObjectId,
+  },
 });
 
 const Post = mongoose.model("Post", postSchema);

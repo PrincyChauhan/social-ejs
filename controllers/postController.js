@@ -15,9 +15,9 @@ var upload = multer({ storage: multerStorage });
 
 const uploadPostImage = upload.single("image");
 
-
 const createPost = async (req, res) => {
   if (req.file) req.body.image = req.file.filename;
+  req.body.user_id = req.cookies.id;
   await Post.create(req.body);
   res.redirect("/view/home");
 };

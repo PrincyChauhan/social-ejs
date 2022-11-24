@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Friend List</title>
+    <title>Request Friend List</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -29,7 +29,7 @@
             >Home <span class="sr-only">(current)</span></a
           >
           <a class="nav-item nav-link" href="create-post">Add Post</a>
-          <a class="nav-item nav-link" href="/view/friend">Friends</a>
+          <a class="nav-item nav-link" href="view/friend">Friends</a>
           <a class="nav-item nav-link" href="/view/logout">Logout</a>
         </div>
       </div>
@@ -37,27 +37,24 @@
     <table class="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Number</th>
+          <th scope="col">Sender</th>
+          <th scope="col">Reciver</th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <% users.forEach(function(user){ %>
-          <tr>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
-            <td><%= user.mobile %></td>
-            <td>
-              <form action="/request/<%= user._id%>" method="POST">
-                <button type="submit" class="btn btn-primary">Send Request</button>
-              </form>
-            </td>
-          </tr>
-          <% }) %>
+        <tr>
+          <td><%= user.sender_id%></td>
+          <td><%= user.reciver_id%></td>
+          <td>
+            <form action="/request/status/<%=user._id%>" method="POST">
+              <button type="submit" class="btn btn-success">Accept</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
       </tbody>
     </table>
   </body>
-
 </html>
