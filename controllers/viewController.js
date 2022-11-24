@@ -84,10 +84,10 @@ const postViewPage = async (req, res, next) => {
 const friendListPage = async (req, res, next) => {
   try {
     if (req.cookies.id) {
-      const friends = await User.find();
-      // res.render("friend", {
-      //   friends: friends,
-      // });
+      const users = await User.find();
+      res.render("friend", {
+        users: users,
+      });
     } else {
       res.redirect("/view/login");
     }
