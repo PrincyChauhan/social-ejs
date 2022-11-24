@@ -1,8 +1,12 @@
 const Request = require("../models/requestModel");
 
 const addRequest = async (req, res) => {
-  req.body.reciver_id = req.params.reciverId;
-  const request = await Request.create(req.body);
+  const reciver_id = req.params.reciverId;
+  const sender_id = req.cookies.id;
+  const request = await Request.create({
+    reciver_id: reciver_id,
+    sender_id: sender_id,
+  });
 };
 
 const updateRequestStatus = async (req, res) => {

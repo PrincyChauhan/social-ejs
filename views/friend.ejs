@@ -51,7 +51,7 @@
             <td><%= user.email %></td>
             <td><%= user.mobile %></td>
             <td>
-              <form action="/<%= user._id%>" method="POST">
+              <form action="/request/<%= user._id%>" method="POST">
                 <button type="submit" class="btn btn-primary">Send Request</button>
               </form>
             </td>
@@ -60,5 +60,5 @@
       </tbody>
     </table>
   </body>
-  
+
 </html>

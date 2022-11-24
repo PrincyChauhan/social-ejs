@@ -33,18 +33,19 @@ const homePage = async (req, res, next) => {
 };
 
 const registerPage = async (req, res, next) => {
-  try {
-    if (req.cookies.id) {
-      res.redirect("/view/home");
-    } else {
+  // try {
+  //   if (req.cookies.id) {
+  //     res.redirect("/view/home");
+  //   } else {
       res.render("register");
-    }
-  } catch (error) {
-    console.log(error);
-    errorMsg = { error: "Something went wrong" };
-    res.status(500).json(errorMsg);
-  }
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  //   errorMsg = { error: "Something went wrong" };
+  //   res.status(500).json(errorMsg);
+  // }
 };
+
 
 const postPage = async (req, res, next) => {
   try {

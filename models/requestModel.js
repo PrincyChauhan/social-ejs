@@ -7,10 +7,11 @@ const RequestSchema = new mongoose.Schema({
   reciver_id: {
     type: mongoose.Schema.ObjectId,
   },
-  status:{
+  status: {
     type: String,
-    enum: ['pending', 'rejected','approved']
-  }
+    enum: ["pending", "rejected", "approved"],
+    default: "pending",
+  },
 });
 
 const Request = mongoose.model("Request", RequestSchema);
