@@ -30,7 +30,7 @@ const homePage = async (req, res, next) => {
 
       console.log(data);
       const posts = await Post.find({
-        user_id: { $in: ["637fa0786904452bc6f38d98"] },
+        user_id: { $in: data },
       });
       res.render("home", {
         posts: posts,
