@@ -3,11 +3,9 @@ const mongoose = require("mongoose");
 const RequestSchema = new mongoose.Schema({
   sender_id: {
     type: mongoose.Schema.ObjectId,
-    required: true
   },
   reciver_id: {
     type: mongoose.Schema.ObjectId,
-    required: true
   },
   status:{
     type: String,

@@ -1,6 +1,7 @@
 const Request = require("../models/requestModel");
 
 const addRequest = async (req, res) => {
+  req.body.reciver_id = req.params.reciverId;
   const request = await Request.create(req.body);
 };
 

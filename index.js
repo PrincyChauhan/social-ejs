@@ -49,8 +49,10 @@ app.use("/request", RequestRouter);
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`can't find ${req.originalUrl} on this server`, 404));
 // });
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 app.use(express.static("uploads"));
 app.use("/uploads", express.static("uploads"));
 

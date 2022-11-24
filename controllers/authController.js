@@ -44,7 +44,6 @@ const protect = catchAsync(async (req, res, next) => {
 
 const userSignup = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
-  console.log(newUser);
   res.redirect("/view/login");
 });
 
